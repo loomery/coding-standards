@@ -1,18 +1,33 @@
 import { describe, it, expect } from "vitest";
-// import { isValidChain, findNextWord } from "./wordChain";
+import { isValidChain, findNextWord } from "./wordChain";
 
 describe("Word Chain Kata", () => {
-  it("should pass a simple test", () => {
-    expect(1).toBe(1);
+  describe("isValidChain", () => {
+    it("should return false for empty chain", () => {
+      expect(isValidChain([])).toBe(false);
+    });
+    it("should return true for single word chain", () => {
+      expect(isValidChain(["cat"])).toBe(true);
+    });
+    it("should return false for chain with uppercase letters", () => {
+      expect(isValidChain(["cat", "Cat", "cot"])).toBe(false);
+    });
+    it("should return false for words with different lengths", () => {
+      expect(isValidChain(["cat", "cot", "dots"])).toBe(false);
+    });
+    it.todo(
+      "should return false for chain with more than one letter difference"
+    );
+    it.todo("should return false for words with different lengths");
+    it.todo(
+      "should return false for chain with more than one letter difference"
+    );
+    it.todo("should return true for a valid chain with one letter difference");
   });
 
-  // it("should validate a correct word chain", () => {
-  //   const chain = ["cat", "cot", "dot", "dog"];
-  //   expect(isValidChain(chain)).toBe(true);
-  // });
-
-  // it("should reject an invalid word chain", () => {
-  //   const chain = ["cat", "cot", "dog"];
-  //   expect(isValidChain(chain)).toBe(false);
-  // });
+  describe("findNextWord", () => {
+    it.todo("should return empty array for empty word");
+    it.todo("should only return words with same length");
+    it.todo("should find all possible next words with one letter difference");
+  });
 });

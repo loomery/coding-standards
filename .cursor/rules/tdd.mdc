@@ -1,60 +1,146 @@
 ---
-description:
-globs:
+description: 
+globs: 
 alwaysApply: true
 ---
-# TDD (Test-Driven Development) Rule
+# Test-Driven Development (TDD) Rules
 
-## Description
-This rule enforces the Test-Driven Development (TDD) process, ensuring developers follow the Red-Green-Refactor cycle.
+## Core TDD Process
 
-## Rule
-When working on a new feature or bug fix:
+1. **Test List First**
+   - Create a list of all test cases using `it.todo()` before writing any implementation
+   - This helps understand the full scope and requirements
+   - Example:
+     ```typescript
+     describe("Feature", () => {
+       it.todo("should handle empty input");
+       it.todo("should handle single item");
+       it.todo("should handle multiple items");
+     });
+     ```
 
-1. **Red Phase**
-   - Write a failing test first
-   - The test should describe the expected behavior
-   - The test must fail (Red) before proceeding
-   - Commit message should start with "test: "
+2. **One Test at a Time**
+   - Work on exactly one test at a time
+   - Convert one `it.todo()` to a real test
+   - Implement only what's needed to make that test pass
+   - Don't think ahead or implement features for future tests
 
-2. **Green Phase**
-   - Write the minimum code to make the test pass
-   - Focus on functionality, not code quality
-   - Commit message should start with "feat: " or "fix: "
+3. **Red-Green-Refactor Cycle**
+   - **Red Phase (Compilation Error)**
+     - Start with a non-existent function
+     - Test should fail with compilation error
+     - This ensures we're truly starting from scratch
 
-3. **Refactor Phase**
-   - Clean up the code while keeping tests passing
+   - **Red Phase (Runtime Error)**
+     - Create empty function that returns undefined/wrong value
+     - Test should fail with assertion error
+     - This verifies our test is working as expected
+
+   - **Green Phase**
+     - Implement minimal code to make the test pass
+     - Don't add features for future tests
+     - Don't optimize or refactor yet
+
+   - **Refactor Phase**
+     - Clean up the code
+     - Remove duplication
+     - Improve readability
+     - Ensure all tests still pass
+
+4. **Guessing Game**
+   - Before running tests, explicitly state:
+     - Which test will fail
+     - Type of error (compilation/assertion)
+     - Expected vs actual values
+     - Expected diff output
+   - Run the test
+   - Compare actual result with prediction
+   - This helps understand what we're testing and why
+
+5. **Baby Steps**
+   - Make the smallest possible change to get to green
+   - If a test fails, make it pass with the simplest implementation
+   - Don't try to solve multiple problems at once
+   - Each step should be clear and verifiable
+
+## Best Practices
+
+1. **Test Structure**
+   - One assertion per test when possible
+   - Clear, descriptive test names
+   - Tests should be independent
+   - No test should depend on another test's state
+
+2. **Implementation**
+   - Start with the simplest possible implementation
+   - Don't add features until there's a test for them
+   - Don't optimize until all tests are green
+   - Keep the code clean and maintainable
+
+3. **Documentation**
+   - Tests serve as documentation
+   - Test names should describe the behavior
+   - Comments should explain why, not what
+
+## Common Pitfalls to Avoid
+
+1. **Writing too many tests at once**
+   - Stick to one test at a time
+   - Don't implement multiple features simultaneously
+
+2. **Skipping the red phase**
+   - Always start with a failing test
+   - Don't write implementation before test
+
+3. **Over-engineering**
+   - Don't add features without tests
+   - Don't optimize prematurely
+
+4. **Not refactoring**
+   - Take time to clean up code
    - Remove duplication
-   - Improve design and maintainability
-   - Commit message should start with "refactor: "
+   - Improve readability
 
-## Validation
-- Each feature/bug fix must have at least one test
-- Tests must be written before implementation
-- All tests must pass before refactoring
-- Code coverage should not decrease after refactoring
+## Example Workflow
 
-## Examples
-```typescript
-// Red Phase
-it("should validate a correct word chain", () => {
-  const chain = ["cat", "cot", "dot", "dog"];
-  expect(isValidChain(chain)).toBe(true);
-});
+1. Create test list:
+   ```typescript
+   describe("Calculator", () => {
+     it.todo("should return 0 for empty input");
+     it.todo("should return number for single input");
+     it.todo("should add two numbers");
+   });
+   ```
 
-// Green Phase
-function isValidChain(chain: string[]): boolean {
-  return true; // Minimum code to pass
-}
+2. Activate first test:
+   ```typescript
+   it("should return 0 for empty input", () => {
+     expect(calculate([])).toBe(0);
+   });
+   ```
 
-// Refactor Phase
-function isValidChain(chain: string[]): boolean {
-  return chain.every((word, i) =>
-    i === 0 || differsByOneLetter(word, chain[i - 1])
-  );
-}
-```
+3. Predict failure:
+   - Test will fail with compilation error
+   - Function doesn't exist yet
 
-## Exceptions
-- Bug fixes for existing features may skip the Red phase if the test already exists
-- Refactoring existing code without new features may skip the Red and Green phases
+4. Create empty function:
+   ```typescript
+   function calculate(numbers: number[]): number {
+     return undefined as any;
+   }
+   ```
+
+5. Predict failure:
+   - Test will fail with assertion error
+   - Expected: 0
+   - Received: undefined
+
+6. Implement minimal solution:
+   ```typescript
+   function calculate(numbers: number[]): number {
+     return 0;
+   }
+   ```
+
+7. Refactor if needed
+8. Move to next test
