@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { isValidChain, findNextWord } from "./wordChain";
+import { isValidChain } from "./wordChain";
 
 describe("Word Chain Kata", () => {
   describe("isValidChain", () => {
@@ -15,14 +15,12 @@ describe("Word Chain Kata", () => {
     it("should return false for words with different lengths", () => {
       expect(isValidChain(["cat", "cot", "dots"])).toBe(false);
     });
-    it.todo(
-      "should return false for chain with more than one letter difference"
-    );
-    it.todo("should return false for words with different lengths");
-    it.todo(
-      "should return false for chain with more than one letter difference"
-    );
-    it.todo("should return true for a valid chain with one letter difference");
+    it("should return false for chain with more than one letter difference", () => {
+      expect(isValidChain(["cat", "cot", "dog"])).toBe(false);
+    });
+    it("should return true for a valid chain with one letter difference", () => {
+      expect(isValidChain(["cat", "cot", "dot"])).toBe(true);
+    });
   });
 
   describe("findNextWord", () => {

@@ -1,6 +1,6 @@
 ---
-description: 
-globs: 
+description:
+globs:
 alwaysApply: true
 ---
 # Test-Driven Development (TDD) Rules
@@ -42,10 +42,21 @@ alwaysApply: true
      - Don't optimize or refactor yet
 
    - **Refactor Phase**
-     - Clean up the code
-     - Remove duplication
-     - Improve readability
-     - Ensure all tests still pass
+     - MUST attempt at least one refactoring
+     - If no improvement is possible, document why
+     - Apply ATP (Absolute Transformation Premise) to measure improvements:
+       - Calculate mass before and after refactoring
+       - Aim for lower mass where possible
+       - Document mass changes
+     - Apply 4 Rules of Simple Design:
+       - Tests must pass
+       - No duplication
+       - Reveals intent
+       - Fewest elements
+     - If no refactoring improves the code:
+       - Document why no refactoring was possible
+       - Explain why current state is optimal
+       - Move to next test
 
 4. **Guessing Game**
    - Before running tests, explicitly state:
@@ -81,6 +92,8 @@ alwaysApply: true
    - Tests serve as documentation
    - Test names should describe the behavior
    - Comments should explain why, not what
+   - Document mass calculations and refactoring decisions
+   - Document when no refactoring is possible
 
 ## Common Pitfalls to Avoid
 
@@ -100,6 +113,8 @@ alwaysApply: true
    - Take time to clean up code
    - Remove duplication
    - Improve readability
+   - Always attempt refactoring after green phase
+   - Use ATP to measure improvements
 
 ## Example Workflow
 
@@ -142,5 +157,11 @@ alwaysApply: true
    }
    ```
 
-7. Refactor if needed
+7. Refactor:
+   - Calculate initial mass
+   - Attempt at least one refactoring
+   - Calculate new mass
+   - Document improvements or explain why none were possible
+   - Ensure all tests still pass
+
 8. Move to next test
