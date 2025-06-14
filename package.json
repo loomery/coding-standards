@@ -1,0 +1,23 @@
+{
+  "name": "word-chain-kata",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "vitest --run",
+    "build": "tsc",
+    "dev": "vitest watch"
+  },
+  "keywords": [
+    "kata",
+    "typescript",
+    "vitest"
+  ],
+  "author": "",
+  "license": "ISC",
+  "description": "Word Chain Kata in TypeScript",
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "typescript": "^5.3.3",
+    "vitest": "^1.3.1"
+  }
+}

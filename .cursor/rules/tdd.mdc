@@ -1,0 +1,60 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# TDD (Test-Driven Development) Rule
+
+## Description
+This rule enforces the Test-Driven Development (TDD) process, ensuring developers follow the Red-Green-Refactor cycle.
+
+## Rule
+When working on a new feature or bug fix:
+
+1. **Red Phase**
+   - Write a failing test first
+   - The test should describe the expected behavior
+   - The test must fail (Red) before proceeding
+   - Commit message should start with "test: "
+
+2. **Green Phase**
+   - Write the minimum code to make the test pass
+   - Focus on functionality, not code quality
+   - Commit message should start with "feat: " or "fix: "
+
+3. **Refactor Phase**
+   - Clean up the code while keeping tests passing
+   - Remove duplication
+   - Improve design and maintainability
+   - Commit message should start with "refactor: "
+
+## Validation
+- Each feature/bug fix must have at least one test
+- Tests must be written before implementation
+- All tests must pass before refactoring
+- Code coverage should not decrease after refactoring
+
+## Examples
+```typescript
+// Red Phase
+it("should validate a correct word chain", () => {
+  const chain = ["cat", "cot", "dot", "dog"];
+  expect(isValidChain(chain)).toBe(true);
+});
+
+// Green Phase
+function isValidChain(chain: string[]): boolean {
+  return true; // Minimum code to pass
+}
+
+// Refactor Phase
+function isValidChain(chain: string[]): boolean {
+  return chain.every((word, i) =>
+    i === 0 || differsByOneLetter(word, chain[i - 1])
+  );
+}
+```
+
+## Exceptions
+- Bug fixes for existing features may skip the Red phase if the test already exists
+- Refactoring existing code without new features may skip the Red and Green phases
