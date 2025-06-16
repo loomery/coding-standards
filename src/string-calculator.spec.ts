@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { sumCommaSeparatedNumbers } from "./string-calculator";
+import { sumCommaSeparatedNumbers } from "./string-calculator.js";
 
 describe("String Calculator", () => {
   it("should return 0 for empty string", () => {

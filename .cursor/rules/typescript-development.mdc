@@ -1,0 +1,148 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# TypeScript Development Rules
+
+## Description
+Best practices and conventions for TypeScript development in this workspace, including module imports, testing framework usage, and file naming conventions.
+
+## Module Import Rules
+
+### Use Explicit File Extensions
+When using **ESNext modules** (`"module": "ESNext"` in `tsconfig.json`), always use explicit file extensions in import statements.
+
+#### Rule: Import with `.js` Extension
+```typescript
+// ✅ Correct - Use .js extension (refers to compiled output)
+import { myFunction } from "./my-module.js";
+
+// ❌ Incorrect - Missing extension causes linter errors
+import { myFunction } from "./my-module";
+```
+
+#### Why This Rule Exists
+- **ESNext modules** follow ES6 import standards requiring explicit extensions
+- **TypeScript compiles** `.ts` → `.js`, so imports reference the final output
+- **Runtime and Vitest** resolve correctly, but TypeScript language server needs explicit extensions
+- **Future-proof** - aligns with modern ES module standards
+
+#### When to Apply
+- All local module imports (relative paths starting with `./` or `../`)
+- Not needed for node_modules imports (e.g., `import { describe } from "vitest"`)
+- Not needed when using CommonJS modules (`"module": "CommonJS"`)
+
+## Testing Framework Rules
+
+### Use Vitest for Unit Testing
+
+#### Rule: Vitest is the Standard Testing Framework
+```typescript
+// ✅ Correct - Import from vitest
+import { describe, it, expect } from "vitest";
+
+// ❌ Incorrect - Don't use jest, mocha, or other frameworks
+import { describe, it, expect } from "jest";
+```
+
+#### Vitest Configuration
+- Use `vitest --run`
+- Leverage Vitest's TypeScript support out of the box
+- No additional configuration needed for basic usage
+
+## File Naming Conventions
+
+### Test Files: Use `.spec.ts` Extension
+
+#### Rule: Tests are Specifications
+```
+✅ Correct naming:
+- calculator.spec.ts
+- string-calculator.spec.ts
+- user-service.spec.ts
+
+❌ Incorrect naming:
+- calculator.test.ts
+- string-calculator.test.ts
+- user-service.test.ts
+```
+
+#### Why `.spec.ts` Instead of `.test.ts`
+- **Tests are specifications** - they document expected behavior
+- **Living documentation** - tests serve as executable specifications
+- **BDD alignment** - emphasizes behavior-driven development
+- **Clarity of purpose** - makes it clear tests are not just validation but specification
+- **Industry standard** - many teams use `.spec.ts` for this semantic reason
+
+
+## TypeScript Configuration Best Practices
+
+### Recommended tsconfig.json Settings
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",              // For modern ES modules
+    "moduleResolution": "node",      // Standard Node.js resolution
+    "esModuleInterop": true,         // Better CommonJS interop
+    "strict": true,                  // Enable all strict checks
+    "skipLibCheck": true,            // Faster compilation
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "dist"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
+```
+
+### Package.json Type Setting
+```json
+{
+  "type": "module",  // Enables ES modules in Node.js
+  "scripts": {
+    "test": "vitest --run",
+    "dev": "vitest watch",
+    "build": "tsc"
+  }
+}
+```
+
+## Development Workflow Integration
+
+### TDD with TypeScript and Vitest
+1. **Create specification file** with `.spec.ts` extension
+2. **Import with explicit extensions** for local modules
+3. **Use Vitest testing functions** (`describe`, `it`, `expect`)
+4. **Follow TDD red-green-refactor** cycle
+5. **Leverage TypeScript's type checking** during development
+
+### Example Template
+```typescript
+// calculator.spec.ts
+import { describe, it, expect } from "vitest";
+import { calculate } from "./calculator.js";
+
+describe("Calculator", () => {
+  it.todo("should handle basic operations");
+  it.todo("should validate input types");
+  it.todo("should handle edge cases");
+});
+```
+
+## IDE Configuration
+
+### VSCode Settings
+Ensure your IDE recognizes these conventions:
+- **File associations**: `.spec.ts` files are treated as TypeScript
+- **Test runner integration**: Configure to run Vitest tests
+- **Import suggestions**: Should suggest `.js` extensions for local imports
+
+## Benefits of These Rules
+
+- **Consistency** - All TypeScript projects follow same conventions
+- **Clarity** - File extensions and naming make purpose obvious
+- **Performance** - Vitest provides fast test execution
+- **Modern standards** - Aligns with current TypeScript/Node.js best practices
+- **Tool integration** - Works seamlessly with build tools and IDEs
+- **Documentation** - Tests as specifications improve code understanding
