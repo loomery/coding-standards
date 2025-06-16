@@ -81,6 +81,11 @@ Watch for these violations of discipline:
    - **Refactor Phase**
      - MUST attempt at least one refactoring
      - If no improvement is possible, document why
+     - **Naming Evaluation (First Priority)**:
+       - Ask: "Does this name clearly describe what the function actually does based on all tests we have so far?"
+       - Ask: "Has the function's purpose become clearer/more specific through the latest test?"
+       - Rename if the name doesn't capture the current full intent
+       - Especially critical when new functionality changes the nature of what the function does
      - Apply ATP (Absolute Transformation Premise) to measure improvements:
        - Calculate mass before and after refactoring
        - Aim for lower mass where possible
