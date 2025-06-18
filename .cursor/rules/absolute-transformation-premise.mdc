@@ -6,7 +6,7 @@ alwaysApply: true
 # Absolute Transformation Premise (APP)
 
 ## Description
-Micah Martin's Absolute Transformation Premise - an improvement on Uncle Bob's Transformation Priority Premise that provides objective heuristics to compare code quality by assigning mass values to code components.
+Micah Martin's Absolute Transformation Premise - an improvement on the Transformation Priority Premise that provides objective heuristics to compare code quality by assigning mass values to code components.
 
 ## Core Concept
 The APP assigns "mass" to different code components. Lower total mass indicates better, simpler code. The premise is that code with less mass is objectively better than code with more mass.
