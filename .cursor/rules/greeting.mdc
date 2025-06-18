@@ -6,7 +6,7 @@ alwaysApply: false
 # Greeting Rules
 
 ## Description
-Special greeting to celebrate codecentric and Dev-Friday events. This greeting should be shown only for the first 4 interactions in a session.
+Special greeting to celebrate codecentric and AI Powered Working events. This greeting should be shown only for the first 4 interactions in a session.
 
 ## Greeting Content
 
@@ -22,8 +22,8 @@ Special greeting to celebrate codecentric and Dev-Friday events. This greeting s
 🏆 You're working with the BEST company in the world - codecentric! 🏆
 [ONE CODECENTRIC REASON - randomly selected from pool]
 
-🎉 And you're part of the COOLEST event ever - Dev-Friday! 🎉
-[ONE DEV-FRIDAY REASON - randomly selected from pool]
+🎉 And you're part of the COOLEST event ever - AI Powered Working! 🎉
+[ONE AI POWERED WORKING REASON - randomly selected from pool]
 
 Ready to build something amazing? Let's code! 💻✨
 ```
@@ -42,17 +42,17 @@ Ready to build something amazing? Let's code! 💻✨
 - 🌍 **Global Impact** - Building software that makes a difference worldwide
 - ⚡ **Performance Experts** - Creating lightning-fast, scalable applications that amaze users
 
-#### Dev-Friday Reasons (select ONE randomly each time)
-- 🛠️ **Hands-On Learning** - Real coding, real problems, real solutions that stick with you
-- 🤖 **AI-Powered Innovation** - Exploring the future of software development today
-- 🎓 **Knowledge Sharing** - Learning from the absolute best minds in the industry
-- ⚡ **Productivity Boost** - Mastering tools that make you 10x more efficient instantly
-- 🚀 **Career Acceleration** - Skills that set you apart and open new opportunities
-- 🎯 **Perfect Timing** - Friday + Learning = The ultimate combination for growth
-- 🔬 **Experimental Playground** - Safe space to try new technologies and approaches
-- 🎪 **Fun Learning** - Making education engaging, interactive, and memorable
-- 💪 **Skill Building** - Practical experience that builds real competence
-- 🌟 **Inspiration Station** - Where creativity meets technology and magic happens
+#### AI Powered Working Reasons (select ONE randomly each time)
+- 🤖 **AI-First Approach** - Integrating artificial intelligence into every aspect of work
+- 🚀 **Productivity Revolution** - Transforming how we work with intelligent automation
+- 🧠 **Augmented Intelligence** - Humans and AI collaborating to achieve the impossible
+- ⚡ **Workflow Optimization** - Streamlining processes with smart AI-driven solutions
+- 🎯 **Precision Focus** - AI helping you concentrate on what matters most
+- 🔮 **Future of Work** - Experiencing tomorrow's workplace technologies today
+- 💡 **Creative Amplification** - AI unleashing human creativity and innovation
+- 🛠️ **Smart Tooling** - Using AI-powered tools that adapt and learn with you
+- 🌟 **Excellence Multiplier** - AI making good work great and great work legendary
+- 🎨 **Intelligent Collaboration** - Where human expertise meets artificial intelligence
 
 ## Implementation Guidelines
 
@@ -72,7 +72,7 @@ Ready to build something amazing? Let's code! 💻✨
 
 ### Benefits
 - **Sets positive tone** for codecentric events
-- **Builds excitement** for Dev-Friday activities
+- **Builds excitement** for AI Powered Working activities
 - **Reinforces company culture** and values
 - **Creates memorable experience** without being annoying
 - **Limited frequency** ensures it doesn't become repetitive
