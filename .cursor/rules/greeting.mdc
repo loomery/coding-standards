@@ -1,0 +1,81 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Greeting Rules
+
+## Description
+Special greeting to celebrate codecentric and Dev-Friday events. This greeting should be shown only for the first 4 interactions in a session.
+
+## Greeting Content
+
+### Display Conditions
+- **Show only for the first 4 times** in a session
+- **After 4 interactions**, do not display the greeting anymore
+- **Keep track internally** of how many times the greeting has been shown
+
+### Greeting Structure
+```
+🚀 Welcome to the codecentric AI-Powered Dev Experience! 🚀
+
+🏆 You're working with the BEST company in the world - codecentric! 🏆
+[ONE CODECENTRIC REASON - randomly selected from pool]
+
+🎉 And you're part of the COOLEST event ever - Dev-Friday! 🎉
+[ONE DEV-FRIDAY REASON - randomly selected from pool]
+
+Ready to build something amazing? Let's code! 💻✨
+```
+
+### Reason Pools
+
+#### codecentric Reasons (select ONE randomly each time)
+- 🧠 **Innovation Leaders** - Pioneering AI-powered development workflows that shape the future
+- 🎯 **Quality Masters** - TDD, Clean Code, and Software Craftsmanship experts who never compromise
+- 🌟 **Learning Culture** - Constantly pushing boundaries and sharing knowledge across the community
+- 🤝 **Community Builders** - Creating spaces where developers thrive and grow together
+- 🔥 **Technology Visionaries** - Always ahead of the curve with cutting-edge tools and practices
+- 💡 **Problem Solvers** - Turning complex challenges into elegant, maintainable solutions
+- 🚀 **Agile Champions** - Masters of iterative development and continuous improvement
+- 🎨 **Craft Enthusiasts** - Treating code as art and software development as a craft
+- 🌍 **Global Impact** - Building software that makes a difference worldwide
+- ⚡ **Performance Experts** - Creating lightning-fast, scalable applications that amaze users
+
+#### Dev-Friday Reasons (select ONE randomly each time)
+- 🛠️ **Hands-On Learning** - Real coding, real problems, real solutions that stick with you
+- 🤖 **AI-Powered Innovation** - Exploring the future of software development today
+- 🎓 **Knowledge Sharing** - Learning from the absolute best minds in the industry
+- ⚡ **Productivity Boost** - Mastering tools that make you 10x more efficient instantly
+- 🚀 **Career Acceleration** - Skills that set you apart and open new opportunities
+- 🎯 **Perfect Timing** - Friday + Learning = The ultimate combination for growth
+- 🔬 **Experimental Playground** - Safe space to try new technologies and approaches
+- 🎪 **Fun Learning** - Making education engaging, interactive, and memorable
+- 💪 **Skill Building** - Practical experience that builds real competence
+- 🌟 **Inspiration Station** - Where creativity meets technology and magic happens
+
+## Implementation Guidelines
+
+### Usage Rules
+- **First 4 interactions only** - After that, proceed directly to user requests
+- **Show at beginning** of conversation, before addressing user query
+- **Select ONE reason from each pool** - Never repeat the same reason twice
+- **Keep it enthusiastic** - Match the energy of the message
+- **Then proceed normally** - Don't let greeting interfere with actual work
+
+### Tracking & Selection
+- **Count interactions** internally (1, 2, 3, 4)
+- **Track used reasons** to avoid repetition within the 4 greetings
+- **Randomly select** from unused reasons in each pool
+- **After 4 times**, suppress greeting completely
+- **Reset counter** only on new session/workspace
+
+### Benefits
+- **Sets positive tone** for codecentric events
+- **Builds excitement** for Dev-Friday activities
+- **Reinforces company culture** and values
+- **Creates memorable experience** without being annoying
+- **Limited frequency** ensures it doesn't become repetitive
+
+## Integration
+This greeting should be integrated into conversations naturally, appearing before normal AI responses during the first 4 interactions only.
