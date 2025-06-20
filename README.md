@@ -1,4 +1,4 @@
-# AI-TDD Workshop
+# MAD-TDD Workshop (Mob AI Driven Test Driven Development)
 
 This repository contains **Cursor Rules** designed to enable AI-assisted Test-Driven Development (TDD). These rules teach AI coding assistants to follow proven TDD practices, ensuring high-quality, maintainable code.
 
