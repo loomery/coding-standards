@@ -1,0 +1,73 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# SOLID Principles Enforcement Rules
+
+This document outlines the rules for analyzing and refactoring code to adhere to SOLID principles. The agent must use these rules to identify violations and guide the user towards a more robust and maintainable design.
+
+---
+
+## Core Principle Analysis and Refactoring
+
+### 1. Single Responsibility Principle (SRP)
+
+- **Rule:** A class, module or functional component must have one, and only one, reason to change. Its responsibility should be narrow and focused.
+- **Violation Detection:**
+    - Scan class methods for verbs that indicate disparate domains (e.g., methods for business logic, data access, and presentation in the same class).
+    - Identify classes with a large number of imports from different layers of the application.
+    - Look for "utility" or "manager" classes that accumulate unrelated helper functions over time.
+- **Refactoring Guidance:**
+    - When a violation is detected, propose extracting the unrelated responsibilities into new, cohesive classes.
+    - Example: For a class managing user data and also emailing users, suggest creating a `UserRepository` and a `NotificationService`.
+    - The original class should then delegate calls to these new, injected dependencies.
+
+### 2. Open/Closed Principle (OCP)
+
+- **Rule:** Software entities should be open for extension, but closed for modification.
+- **Violation Detection:**
+    - Identify `if/else` or `switch` statements that switch on a type, enum, or property, especially in areas where new types are often added.
+    - Flag areas where adding a new feature requires modifying existing, tested code.
+- **Refactoring Guidance:**
+    - Propose replacing the conditional logic with a strategy, factory, or plugin pattern.
+    - Define a common interface or abstract base class for the behavior.
+    - Each branch of the conditional becomes a concrete class implementing the abstraction.
+    - The client code will then work with the abstraction, and new functionality can be added by creating new concrete classes without modifying the client.
+
+### 3. Liskov Substitution Principle (LSP)
+
+- **Rule:** Subtypes must be substitutable for their base types without altering the correctness of the program.
+- **Violation Detection:**
+    - Look for subclass methods that are empty, throw a `NotImplementedError`, or return a value of a different type than the parent method.
+    - Identify `instanceof` checks followed by different behavior for a specific subtype, which indicates the abstraction is leaky.
+- **Refactoring Guidance:**
+    - Question the "is-a" relationship. The subclass might not be a true subtype.
+    - Suggest refactoring to a different hierarchy or using composition instead of inheritance.
+    - Ensure subclasses honor the contract of the base class (e.g., preconditions are not strengthened, postconditions are not weakened).
+
+### 4. Interface Segregation Principle (ISP)
+
+- **Rule:** Clients should not be forced to depend on methods they do not use.
+- **Violation Detection:**
+    - Find classes that implement an interface but have empty or "dummy" implementations for several methods.
+    - Identify "fat" interfaces with many methods serving different, unrelated clients.
+- **Refactoring Guidance:**
+    - Propose splitting the large interface into several smaller, more cohesive, client-specific interfaces.
+    - The class will then implement only the interfaces relevant to its functionality.
+
+### 5. Dependency Inversion Principle (DIP)
+
+- **Rule:** High-level modules should not depend on low-level modules. Both should depend on abstractions. Abstractions should not depend on details.
+- **Violation Detection:**
+    - Find high-level policy/business logic classes that directly instantiate or depend on low-level implementation classes (e.g., `new MySQLDatabase()`, `new StripePaymentGateway()`).
+- **Refactoring Guidance:**
+    - Propose introducing an interface (abstraction) for the low-level service.
+    - The low-level class should implement this interface.
+    - The high-level class should depend on the interface, not the concrete class.
+    - Use Dependency Injection (e.g., via constructor) to provide the concrete implementation to the high-level class at runtime.

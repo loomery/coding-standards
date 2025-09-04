@@ -1,0 +1,71 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Airbnb React Style Guide Enforcement Rules
+
+This document provides rules for enforcing the Airbnb React/JSX Style Guide. The agent must use these rules to analyze components and guide the user towards cleaner, more idiomatic React code.
+This should be integrated with an eslint config which follows https://airbnb.io/javascript/react/#naming
+
+---
+
+## Core Style Guide Rules
+
+### 1. Component Definition: Functional Components with Hooks
+
+- **Rule:** All new components must be functional components using Hooks. Class components should be considered for refactoring.
+- **Violation Detection:**
+    - Identify any component defined using `class MyComponent extends React.Component`.
+- **Refactoring Guidance:**
+    - Propose a refactoring to a functional component.
+    - Convert `this.state` to `useState` hooks.
+    - Convert lifecycle methods (`componentDidMount`, `componentDidUpdate`, `componentWillUnmount`) to `useEffect` hooks.
+    - Convert class methods to standalone helper functions or inline functions within the component.
+
+### 2. Naming Conventions (check linter rules for React)
+
+- **Rule:** Component names and their corresponding filenames must be PascalCase (e.g., `ReservationCard.tsx`).
+- **Violation Detection:**
+    - Scan filenames and `export default` statements for non-PascalCase names (e.g., `myComponent.tsx` or `my_component.tsx`).
+    - Check JSX for component tags that are not PascalCase.
+- **Refactoring Guidance:**
+    - Suggest renaming the file and/or the component declaration to PascalCase.
+    - Correct JSX usage where applicable.
+
+### 3. Props Handling: Destructuring and Typing
+
+- **Rule:** Props must be destructured in the function signature. All props must have explicit types defined in a `Props` interface or `type` alias (for TypeScript).
+- **Violation Detection:**
+    - Find components that access props via `props.propertyName` instead of destructuring.
+    - Identify components where the `props` object is typed as `any` or is missing a type definition.
+- **Refactoring Guidance:**
+    - Rewrite the function signature to destructure the props: `function MyComponent({ prop1, prop2 })`.
+    - Generate a `type Props = { ... }` or `interface Props { ... }` block with inferred or placeholder types.
+    - Apply the `Props` type to the component's props argument: `function MyComponent({ prop1, prop2 }: Props)`. 
+
+### 4. Conditional Rendering
+
+- **Rule:** Simple conditional logic should use ternary operators (`condition ? <A /> : <B />`). Complex logic must be extracted from JSX into variables or helper functions for clarity. Avoid using the `&&` operator for rendering components, as it can lead to unexpected output (e.g., rendering `0`).
+- **Violation Detection:**
+    - Identify JSX containing the pattern `condition && <Component />`.
+    - Find complex multi-line expressions or nested ternaries directly within JSX.
+- **Refactoring Guidance:**
+    - For `&&`, propose converting to a ternary expression: `condition ? <Component /> : null`.
+    - For complex logic, propose extracting it into a variable above the `return` statement or into a dedicated render helper function (e.g., `renderContent()`).
+
+### 5. Composition over Inheritance
+
+- **Rule:** Do not use class inheritance to share code between components. Always use composition via props and the `children` prop.
+- **Violation Detection:**
+    - Identify any React component that `extends` another component (other than `React.Component` or `PureComponent`).
+    - Look for complex Higher-Order Components (HOCs) that could be simplified with custom Hooks.
+- **Refactoring Guidance:**
+    - Propose refactoring the inheritance pattern into a composition pattern.
+    - Show how to create a more generic component that accepts the specialized parts as props or `children`.
+    - Example: Instead of `class SpecialButton extends BaseButton`, create a generic `<Button>` that is configured via props: `<Button variant="special">` or `<Button><SpecialIcon /></Button>`.
