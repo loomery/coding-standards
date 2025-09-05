@@ -1,0 +1,81 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Node.js Best Practices Enforcement Rules
+
+This agent enforces key best practices for building robust, secure, and maintainable Node.js applications, based on the popular `goldbergyoni/nodebestpractices` guide.
+
+---
+
+## Core Best Practices
+
+### 1. Project Structure: Component-Based
+
+- **Rule:** Structure your project by features or components, not by technical roles (e.g., a global `controllers`, `models`, `services` directory). Each component should contain all its related files.
+- **Violation Detection:**
+    - Identify top-level directories named `controllers`, `services`, `routes`, or `models` that contain files from multiple, unrelated features.
+- **Refactoring Guidance:**
+    - Propose reorganizing the file structure into feature-based directories (e.g., a `/users` directory and a `/products` directory).
+    - Each feature directory should contain its own `user.controller.ts`, `user.service.ts`, and `user.routes.ts`.
+    - This improves modularity and makes the codebase easier to navigate and scale.
+
+### 2. Error Handling: Use Async-Await and Centralized Handling
+
+- **Rule:** Use `async-await` with `try-catch` blocks for all asynchronous operations. Avoid raw promises with `.then().catch()`. For Express applications, implement a single, centralized error handling middleware.
+- **Violation Detection:**
+    - Find `.then()` and `.catch()` chains, especially those handling complex logic or nested promises.
+    - Look for Express routes that handle errors manually (e.g., `res.status(500).send(...)`) instead of passing them to a `next(error)` function.
+    - Check for the absence of a centralized Express error handling middleware (i.e., `app.use((err, req, res, next) => ...)`).
+- **Refactoring Guidance:**
+    - Suggest refactoring promise chains to `async-await` syntax with `try-catch` blocks for better readability and linear error handling.
+    - For Express, recommend creating a single error handling middleware at the end of the middleware chain.
+    - Guide the user to replace manual error responses in routes with calls to `next(error)`.
+
+### 3. Security: Manage Secrets with Environment Variables
+
+- **Rule:** Never hardcode secrets (API keys, database passwords, tokens) in the source code. Load them from environment variables and/or `.env` files.
+- **Violation Detection:**
+    - Scan the code for hardcoded strings that match common secret patterns (e.g., `"sk_live_"`, `"mongodb://"`, `"password":`).
+    - Flag any potential secrets found outside of configuration files or direct environment variable access (`process.env`).
+- **Refactoring Guidance:**
+    - Recommend removing the hardcoded secret from the code.
+    - Propose replacing it with `process.env.YOUR_SECRET_NAME`.
+    - Advise creating a `.env` file to store the secrets locally, adding it to `.gitignore`, and using a library like `dotenv` to load the variables.
+
+### 4. Performance: Avoid Blocking the Event Loop
+
+- **Rule:** Never use synchronous functions for I/O (e.g., `fs.readFileSync`) or long-running, CPU-intensive tasks within a web server context. Use their asynchronous counterparts.
+- **Violation Detection:**
+    - Identify usage of synchronous Node.js API methods ending in `Sync` (e.g., `readFileSync`, `execSync`, `crypto.randomBytesSync`).
+    - Look for long-running, synchronous loops that could block the event loop and delay other requests.
+- **Refactoring Guidance:**
+    - Propose replacing the synchronous method with its asynchronous, promise-based alternative (e.g., `await fs.promises.readFile`).
+    - For CPU-bound tasks, suggest offloading the work to a worker thread (`worker_threads`) or a dedicated microservice to prevent blocking the main thread.
+
+### 5. Typing: Avoid `any` and Ambiguous Types
+
+- **Rule:** In TypeScript projects, avoid using the `any` type. Be as specific as possible with type definitions to leverage TypeScript's static analysis and prevent runtime errors.
+- **Violation Detection:**
+    - Scan `.ts` and `.tsx` files for explicit use of the `any` type in variable declarations, function parameters, and return types.
+    - Flag variables or functions where the type is implicitly `any`.
+- **Refactoring Guidance:**
+    - Recommend replacing `any` with a more specific type (e.g., `string`, `number`, a custom `interface` or `type`).
+    - If the data structure is unknown, suggest using `unknown` instead of `any` and performing type checks before using the variable.
+    - For complex objects, guide the user to define an `interface` or `type` that describes its shape.
+
+### 6. Asynchronous Flow: Avoid Multiple Callback Loops
+
+- **Rule:** Avoid deeply nested callbacks (often referred to as "callback hell"), as they make code difficult to read, reason about, and debug. Prefer modern asynchronous patterns like Promises and `async-await`.
+- **Violation Detection:**
+    - Identify code structures with multiple levels of nested callback functions, especially for asynchronous I/O operations.
+    - Look for functions that take other functions as arguments, which are then called within a nested structure.
+- **Refactoring Guidance:**
+    - Propose refactoring the nested callbacks into a linear chain of `.then()` calls using Promises.
+    - For a more modern and readable approach, recommend converting the entire chain to an `async` function and using `await` for each asynchronous operation. This flattens the code structure and simplifies error handling with `try-catch`.
