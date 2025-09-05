@@ -28,6 +28,28 @@ Micah Martin's objective code quality measurement system:
 - Guides toward simpler, functional approaches
 - Helps choose between equivalent solutions
 
+### 💻 **Node.js Best Practices**
+Based on the popular `goldbergyoni/nodebestpractices` guide, these rules enforce best practices for:
+- Component-based project structure
+- Centralized `async-await` error handling
+- Secure secret management with environment variables
+- Avoiding event loop blocking
+
+### ⚛️ **React Style Guide**
+Enforces the Airbnb React/JSX Style Guide for clean, idiomatic code:
+- Functional components with Hooks
+- PascalCase naming conventions
+- Props destructuring and typing
+- Composition over inheritance
+
+### 🧱 **SOLID Principles**
+Guides analysis and refactoring to adhere to SOLID principles for robust and maintainable design:
+- Single Responsibility Principle (SRP)
+- Open/Closed Principle (OCP)
+- Liskov Substitution Principle (LSP)
+- Interface Segregation Principle (ISP)
+- Dependency Inversion Principle (DIP)
+
 ## How to Use
 
 ### For Cursor IDE:
